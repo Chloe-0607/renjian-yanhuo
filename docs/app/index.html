@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>最食人間煙火色 · 情緒色彩盲盒食譜機</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#F2EBE1;
+  --cream:#FFF8EC;
+  --paper:#FFFDF8;
+  --ink:#3A2E24;
+  --ink-2:#6F6152;
+  --ink-3:#AA9C8B;
+  --line:#F0E5D4;
+  --butter:#FFD970;
+  --honey:#F5A623;
+  --peach:#FFB48F;
+  --coral:#EE8457;
+  --cocoa:#3B2C22;
+  --clay:inset -4px -6px 10px rgba(0,0,0,.07), inset 4px 5px 8px rgba(255,255,255,.75);
+  --lift:0 10px 24px rgba(120,90,40,.10);
+  --c:#F5B43A; --c-soft:#FFF1C6; --c-deep:#7A5200;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .18 0 0 0 0 .1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --zh:'Noto Sans TC',sans-serif;
+  --en:'Nunito','Noto Sans TC',sans-serif;
+  --num:'Nunito','Noto Sans TC',sans-serif;
+}
+body{
+  font-family:'Nunito','Noto Sans TC',sans-serif;color:var(--ink);
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 18%,#FFEFD0 0,transparent 34%),
+    radial-gradient(circle at 88% 85%,#FFDCC6 0,transparent 38%),
+    var(--bg);
+  display:flex;align-items:center;justify-content:center;gap:80px;
+  padding:40px 24px;
+}
+button{font-family:inherit;color:inherit;}
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+
+/* texture */
+.grain{position:relative;isolation:isolate;}
+.grain::after{content:'';position:absolute;inset:0;background:var(--grain);opacity:.28;mix-blend-mode:multiply;pointer-events:none;border-radius:inherit;z-index:-1;}
+
+/* 3D clay token (ingredient initials) */
+.tok{display:grid;place-items:center;border-radius:50%;flex-shrink:0;
+  font-family:var(--zh);font-weight:700;color:var(--td);
+  background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 9%,var(--tc) 48%,var(--tc) 100%);
+  box-shadow:inset -4px -5px 8px rgba(80,50,20,.12),inset 3px 3px 6px rgba(255,255,255,.7),0 5px 10px -3px rgba(120,80,30,.25);}
+
+/* ============ POSTER (desktop only) ============ */
+.poster{width:320px;}
+.poster .brand{font-family:var(--zh);font-size:42px;font-weight:700;letter-spacing:.1em;line-height:1.05;white-space:nowrap;}
+.poster .brand span{display:block;font-family:var(--en);font-weight:600;font-size:12.5px;letter-spacing:.22em;color:var(--ink-2);margin-top:14px;}
+.poster .rule{width:56px;height:2px;background:var(--ink);opacity:.25;margin:28px 0;}
+.poster .quote{font-family:var(--zh);font-weight:500;font-size:20px;line-height:1.7;margin-top:0;}
+@media (max-width:920px){.poster{display:none;}}
+
+/* ============ PHONE ============ */
+.phone{
+  position:relative;width:375px;height:812px;flex-shrink:0;
+  border-radius:50px;background:var(--cream);overflow:hidden;
+  box-shadow:0 0 0 9px #FFFDF8,0 0 0 10px #E6DACB,0 40px 80px -20px rgba(110,70,30,.35),0 18px 40px rgba(110,70,30,.12);
+}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:32px;border-radius:20px;background:#1E1A16;z-index:60;}
+.home-ind{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:124px;height:5px;border-radius:3px;background:var(--ink);opacity:.22;z-index:60;}
+.sb{height:52px;padding:17px 30px 0;display:flex;justify-content:space-between;align-items:flex-start;font:700 15px var(--en);color:var(--ink);position:relative;z-index:5;}
+.sb-icons{display:flex;gap:6px;align-items:center;}
+.sb-icons svg{height:12px;fill:currentColor;}
+
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-bottom:116px;display:none;scrollbar-width:none;}
+.screen::-webkit-scrollbar{display:none;}
+.screen.active{display:block;animation:enter .38s cubic-bezier(.2,.8,.2,1);}
+@keyframes enter{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.pad{padding:0 20px;}
+
+.icon-btn{width:44px;height:44px;border-radius:50%;border:0;background:var(--paper);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 16px rgba(120,90,40,.10),inset 0 1px 0 #fff;position:relative;}
+.eyebrow{font:700 10.5px var(--en);letter-spacing:.26em;color:var(--ink-2);text-transform:uppercase;}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;margin:26px 0 12px;}
+.sec-head h3{font-family:var(--zh);font-size:17px;font-weight:700;display:flex;align-items:baseline;}
+.sec-head h3 i{font:600 10px var(--en);font-style:normal;color:var(--ink-3);margin-left:8px;letter-spacing:.2em;text-transform:uppercase;}
+.sec-head span{font-size:12px;color:var(--ink-3);}
+.kicker{font:600 10.5px var(--en);letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
+
+/* ============ TAB BAR ============ */
+.tabbar{
+  position:absolute;left:16px;right:16px;bottom:22px;height:66px;border-radius:33px;
+  background:rgba(255,253,248,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 14px 34px rgba(80,60,30,.16),inset 0 1px 0 #fff;
+  display:flex;align-items:center;padding:0 6px;z-index:40;
+}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--ink-3);background:none;border:0;cursor:pointer;padding:4px 0;transition:color .2s;}
+.tab .ti{width:46px;height:30px;border-radius:15px;display:grid;place-items:center;transition:all .25s;}
+.tab.active{color:var(--ink);font-weight:700;}
+.tab.active .ti{background:var(--butter);box-shadow:var(--clay);}
+
+/* ============ HOME ============ */
+#s-home{background:linear-gradient(180deg,#FFF8EC 0%,#FFF8EC 62%,#FFF0E4 100%);}
+.h-top{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 20px 0;}
+.hello{display:flex;align-items:center;gap:8px;font:600 15px var(--en);color:var(--ink-2);}
+.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(140deg,#FFD970,#FFB48F);display:grid;place-items:center;font:600 14px var(--num);color:#7A4A12;box-shadow:var(--clay);}
+.h-top h1{font-family:var(--zh);font-size:26px;font-weight:700;line-height:1.3;margin-top:8px;letter-spacing:.02em;}
+.h-top .subtitle{font-size:13px;line-height:1.6;color:var(--ink-2);margin-top:6px;}
+.quote-source{display:block;font-family:var(--zh);font-size:11px;font-weight:400;line-height:1.6;margin-top:5px;}
+.own-line{display:block;font-family:var(--zh);font-size:14px;font-weight:700;line-height:1.6;color:var(--ink);margin-top:8px;letter-spacing:.04em;}
+.poster .own-line{font-size:18px;margin-top:14px;}
+
+.hero{
+  margin:18px 20px 0;height:214px;border-radius:30px;overflow:hidden;
+  background:linear-gradient(150deg,#FFF4DA 0%,#FFE7A8 55%,#FFD47E 100%);
+  display:flex;align-items:center;padding:0 10px 0 22px;
+  box-shadow:0 18px 34px -14px rgba(245,166,35,.45);
+}
+.hero .sun{position:absolute;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#FFF6DA 0,#FFF6DA00 70%);top:-30px;left:-30px;z-index:-1;}
+.hero-text{flex:1;position:relative;}
+.hero-text .hand{font-family:var(--zh);font-weight:700;font-size:17.5px;line-height:1.55;margin:10px 0 14px;white-space:nowrap;}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;background:rgba(255,253,248,.75);border-radius:20px;padding:5px 10px;color:var(--ink-2);}
+.hero-chip b{font-family:var(--num);color:var(--ink);}
+
+/* gacha machine */
+.machine{position:relative;width:150px;height:186px;flex-shrink:0;}
+.dome{
+  position:absolute;top:0;left:6px;width:138px;height:128px;border-radius:69px 69px 38px 38px;overflow:hidden;z-index:2;
+  background:linear-gradient(160deg,rgba(255,255,255,.88),rgba(255,240,226,.6));
+  border:2px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 -12px 20px rgba(214,140,70,.18),inset 0 8px 14px #fff,0 8px 18px rgba(214,140,70,.16);
+}
+.dome::after{content:'';position:absolute;top:14px;left:20px;width:22px;height:46px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(24deg);z-index:3;}
+.cap{position:absolute;width:var(--s,34px);height:var(--s,34px);border-radius:50%;
+  background:linear-gradient(180deg,var(--cc) 50%,#FFFDF6 50%);
+  box-shadow:inset -3px -4px 6px rgba(0,0,0,.12),inset 3px 3px 5px rgba(255,255,255,.7),0 2px 3px rgba(0,0,0,.06);
+  transform:rotate(var(--r,0deg));}
+.machine.go .cap{animation:jiggle .45s ease-in-out 2;}
+@keyframes jiggle{
+  0%,100%{transform:rotate(var(--r,0deg));}
+  30%{transform:translate(3px,-10px) rotate(calc(var(--r,0deg) + 30deg));}
+  65%{transform:translate(-3px,-4px) rotate(calc(var(--r,0deg) - 18deg));}
+}
+.m-body{
+  position:absolute;bottom:0;left:0;width:150px;height:74px;border-radius:22px 22px 30px 30px;z-index:1;
+  background:linear-gradient(180deg,#FFC94A,#F2A21E);
+  box-shadow:inset 0 -9px 14px rgba(160,90,0,.25),inset 0 6px 10px rgba(255,255,255,.5),0 14px 22px -6px rgba(200,120,10,.5);
+}
+.knob{position:absolute;left:20px;top:22px;width:40px;height:40px;border-radius:50%;background:#FFFDF6;box-shadow:inset -3px -4px 6px rgba(0,0,0,.1),0 3px 6px rgba(150,80,0,.25);transition:transform .7s cubic-bezier(.5,0,.3,1);}
+.knob::before{content:'';position:absolute;left:50%;top:7px;bottom:7px;width:8px;margin-left:-4px;border-radius:4px;background:#F2A21E;}
+.machine.go .knob{transform:rotate(360deg);}
+.slot{position:absolute;right:20px;top:24px;width:48px;height:34px;border-radius:14px;background:#B26E06;box-shadow:inset 0 6px 8px rgba(70,30,0,.45);}
+.out{position:absolute;right:31px;top:118px;width:26px;height:26px;border-radius:50%;z-index:4;opacity:0;
+  background:linear-gradient(180deg,var(--c) 50%,#FFFDF6 50%);
+  box-shadow:inset -3px -3px 5px rgba(0,0,0,.14),inset 2px 2px 4px rgba(255,255,255,.7),0 4px 8px rgba(0,0,0,.15);}
+.machine.go .out{animation:drop .7s .6s cubic-bezier(.3,1.4,.5,1) both;}
+@keyframes drop{0%{opacity:0;transform:translateY(-8px) scale(.4);}50%{opacity:1;}100%{opacity:1;transform:translateY(36px) scale(1.25) rotate(200deg);}}
+
+/* mood — gacha capsules */
+.mood-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.mood{border:0;background:transparent;border-radius:22px;padding:10px 0 10px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;font-size:13px;font-weight:700;transition:all .22s;}
+.mood small{font-size:10.5px;font-weight:400;color:var(--ink-3);margin-top:-3px;}
+.mood .face{width:60px;height:60px;display:block;transition:transform .3s cubic-bezier(.3,1.6,.5,1);}
+.mood .face svg{width:100%;height:100%;display:block;overflow:visible;}
+.mood.on{background:var(--paper);box-shadow:0 10px 22px rgba(120,90,40,.10),inset 0 0 0 2px var(--mc);}
+.mood.on .face{transform:scale(1.1) translateY(-2px);animation:bob 2.4s ease-in-out .3s infinite;}
+@keyframes bob{0%,100%{transform:scale(1.1) translateY(-2px);}50%{transform:scale(1.1) translateY(-6px) rotate(-3deg);}}
+
+/* color */
+.spectrum{background:var(--paper);border-radius:24px;padding:16px 18px 12px;box-shadow:var(--lift);}
+.sp-top{display:flex;align-items:center;gap:9px;}
+.sp-top .sp-dot{width:14px;height:14px;border-radius:50%;background:var(--tc);box-shadow:inset -2px -2px 4px rgba(70,40,12,.18);transition:background .2s;}
+.sp-top b{font-family:var(--zh);font-size:15px;font-weight:700;}
+.sp-top small{margin-left:auto;font-size:11.5px;color:var(--ink-3);}
+.sp-track{position:relative;height:18px;margin:16px 4px 0;border-radius:9px;cursor:pointer;touch-action:none;
+  background:linear-gradient(90deg,#4FB548 0%,#9AD66F 15%,#FFEDB8 37.5%,#FFC21F 60%,#FF9433 75%,#FF6550 88%,#F2453F 100%);
+  box-shadow:inset 0 2px 3px rgba(70,40,12,.12),inset 0 -1px 0 rgba(255,255,255,.5);}
+.sp-track::before{content:'';position:absolute;inset:0;border-radius:inherit;background:var(--grain);background-size:90px;opacity:.22;mix-blend-mode:multiply;pointer-events:none;}
+.sp-thumb{position:absolute;top:50%;left:62.5%;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--tc) 55%,#FFF8EC),var(--tc) 60%);border:4px solid #FFFDF8;
+  box-shadow:0 6px 12px -3px rgba(90,58,26,.4),0 0 0 1px rgba(90,58,26,.08);transition:left .28s cubic-bezier(.3,1.4,.5,1),background .2s,transform .15s;}
+.sp-thumb.drag{transition:background .2s,transform .15s;transform:scale(1.12);}
+.sp-labels{display:grid;grid-template-columns:repeat(4,1fr);margin:12px 4px 0;}
+.sp-labels button{border:0;background:none;font:500 12px var(--zh);color:var(--ink-3);cursor:pointer;padding:2px 0;transition:color .2s;}
+.sp-labels button.on{color:var(--ink);font-weight:700;}
+
+.pull{
+  margin:22px 20px 0;width:calc(100% - 40px);height:62px;border:0;border-radius:31px;cursor:pointer;
+  background:linear-gradient(120deg,#F4875A 0%,#E8673F 100%);color:#FFF8EC;font-family:var(--zh);font-size:17px;font-weight:700;letter-spacing:.08em;
+  display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 26px;
+  box-shadow:0 16px 28px -12px rgba(232,103,63,.6),inset 0 2px 0 rgba(255,230,210,.4);transition:transform .15s;
+}
+.pull:active{transform:scale(.97);}
+.pull .go{width:46px;height:46px;border-radius:50%;background:var(--butter);color:#B4482A;display:grid;place-items:center;box-shadow:var(--clay);}
+.pull small{font:500 12px var(--en);opacity:.75;margin-left:8px;letter-spacing:0;}
+
+.week{margin:26px 20px 0;background:var(--paper);border-radius:26px;padding:18px 18px 16px;box-shadow:var(--lift);}
+.week-top{display:flex;justify-content:space-between;align-items:baseline;}
+.week-top h4{font-family:var(--zh);font-size:16px;font-weight:700;}
+.week-top span{font:600 11.5px var(--en);color:var(--ink-3);letter-spacing:.04em;}
+.days{display:grid;grid-template-columns:repeat(7,1fr);margin-top:14px;text-align:center;}
+.days div{font:600 10.5px var(--en);color:var(--ink-3);display:flex;flex-direction:column;align-items:center;gap:7px;}
+.days i{width:30px;height:30px;border-radius:50%;background:#F4EEE4;display:block;}
+.days i.m{width:38px;height:38px;margin:-4px 0;background:none;}
+.days i.m svg{width:100%;height:100%;display:block;overflow:visible;}
+.days .today{color:var(--ink);font-weight:700;}
+.days .today i{outline:2px dashed var(--ink-3);outline-offset:2px;}
+.week .hand{font-family:var(--zh);font-weight:600;font-size:14px;color:var(--ink-2);margin-top:14px;display:flex;align-items:center;gap:8px;}
+.week .hand::before{content:'';width:18px;height:1.5px;background:var(--ink-3);}
+
+/* ============ RECIPE ============ */
+#s-recipe{background:var(--cream);}
+.r-hero{height:452px;background:var(--hero);position:relative;}
+.r-nav{display:flex;justify-content:space-between;align-items:center;padding:4px 20px 0;}
+.r-nav .t{font:700 14px var(--zh);letter-spacing:.12em;}
+.icon-btn.liked{color:#F06A5E;}
+.icon-btn.liked svg{fill:#F06A5E;}
+.plate-wrap{position:relative;width:268px;height:268px;margin:12px auto 0;}
+.plate{width:268px;height:268px;border-radius:50%;overflow:hidden;background:#EFE4D4;
+  border:7px solid #FFFDF8;box-shadow:0 18px 30px -16px rgba(60,40,10,.35);}
+.plate img{width:100%;height:100%;object-fit:cover;display:block;}
+.plate.pop{animation:pop .6s cubic-bezier(.3,1.6,.5,1);}
+@keyframes pop{from{transform:scale(.6) rotate(-20deg);opacity:0;}to{transform:none;opacity:1;}}
+.r-tag{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:8px;color:var(--c-deep);}
+.r-tag b{font:800 11px var(--en);letter-spacing:.26em;opacity:.7;}
+.r-tag span{font:700 16px var(--zh);letter-spacing:.1em;}
+
+.sheet{background:var(--cream);border-radius:34px 34px 0 0;margin-top:-34px;position:relative;padding:26px 20px 0;}
+.sheet .for{font-size:12px;color:var(--c-deep);background:var(--c-soft);display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-weight:600;}
+.sheet h1{font-family:var(--zh);font-size:28px;font-weight:900;margin:12px 0 4px;letter-spacing:.02em;}
+.sheet .sub{font-size:12.5px;color:var(--ink-3);}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;}
+.stat{background:var(--paper);border-radius:20px;padding:12px 14px;box-shadow:var(--lift);}
+.stat span{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:4px;}
+.stat span svg{width:14px;height:14px;}
+.stat b{display:block;font:700 26px/1.1 var(--num);margin-top:6px;letter-spacing:-.01em;}
+.stat b small{font:600 11.5px var(--en);color:var(--ink-2);margin-left:2px;}
+.stat b.zh{font-family:var(--zh);font-weight:700;font-size:22px;}
+.progress{font:600 11.5px var(--en);color:var(--c-deep);background:var(--c-soft);padding:3px 10px;border-radius:12px;}
+
+.ings{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.ing{display:flex;align-items:center;gap:10px;background:var(--paper);border:1.5px solid transparent;border-radius:18px;padding:9px 10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(120,90,40,.06);text-align:left;}
+.ing .tok{width:36px;height:36px;font-size:15px;--tc:var(--c-soft);--td:var(--c-deep);}
+.ing .n{flex:1;min-width:0;font-size:13px;font-weight:700;line-height:1.3;}
+.ing .n small{display:block;font-weight:500;font-size:11px;color:var(--ink-3);}
+.ing .ck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;flex-shrink:0;transition:all .2s;}
+.ing .ck svg{width:12px;height:12px;stroke:#fff;stroke-width:3;opacity:0;}
+.ing.got{border-color:var(--c);background:var(--c-soft);}
+.ing.got .tok{--tc:#FFFDF8;}
+.ing.got .ck{background:var(--c);border-color:var(--c);}
+.ing.got .ck svg{opacity:1;}
+
+.steps{background:var(--paper);border-radius:24px;padding:6px 16px;box-shadow:var(--lift);}
+.step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;cursor:pointer;}
+.step + .step{border-top:1px solid var(--line);}
+.step .dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--c);color:var(--c-deep);display:grid;place-items:center;font:700 15px var(--num);flex-shrink:0;transition:all .25s;background:#fff;}
+.step .dot svg{width:16px;height:16px;stroke:#fff;stroke-width:3;display:none;}
+.step.done .dot{background:var(--c);}
+.step.done .dot span{display:none;}
+.step.done .dot svg{display:block;}
+.step .body{flex:1;padding-top:1px;}
+.step .body small{font:700 10px var(--en);letter-spacing:.2em;color:var(--ink-3);}
+.step .body p{font-size:14px;line-height:1.6;margin-top:2px;transition:color .2s;}
+.step.done .body p{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--c);}
+
+.diary{margin-top:16px;border-radius:24px;padding:16px 18px 12px;background:var(--c-soft);}
+.diary .d-head{display:flex;align-items:baseline;justify-content:space-between;}
+.diary .d-head b{font:700 15px var(--zh);color:var(--c-deep);}
+.diary .d-head small{font:600 10px var(--en);color:var(--c-deep);opacity:.7;letter-spacing:.2em;}
+.diary textarea{display:block;width:100%;margin-top:10px;border:0;border-radius:16px;background:rgba(255,253,248,.85);padding:12px 14px;font:500 14px/1.6 var(--zh);color:var(--ink);resize:none;outline:none;box-shadow:inset 0 1px 3px rgba(120,90,40,.08);}
+.diary textarea::placeholder{color:var(--ink-3);}
+.diary textarea:focus{box-shadow:inset 0 0 0 1.5px var(--c);}
+.diary .d-hint{display:block;margin-top:8px;font-size:11px;color:var(--c-deep);opacity:.65;}
+.disclaimer{font-size:11px;color:var(--ink-3);margin-top:12px;line-height:1.6;}
+
+.actions{display:flex;gap:10px;margin-top:18px;}
+.act{width:56px;height:56px;border-radius:50%;border:0;background:var(--paper);display:grid;place-items:center;cursor:pointer;box-shadow:var(--lift);flex-shrink:0;}
+.act-main{flex:1;height:56px;border-radius:28px;border:0;cursor:pointer;background:var(--cocoa);color:#FFF8EC;font-family:var(--zh);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 22px;box-shadow:0 14px 24px -10px rgba(59,44,34,.5);}
+.act-main .go{width:40px;height:40px;border-radius:50%;background:var(--c);display:grid;place-items:center;color:#fff;}
+
+/* ============ FRIDGE ============ */
+#s-fridge{background:linear-gradient(180deg,#FFF3DA 0%,#FFF8EC 42%);}
+.page-head{padding:6px 20px 0;display:flex;justify-content:space-between;align-items:flex-start;}
+.page-head h1{font-family:var(--zh);font-size:30px;font-weight:900;letter-spacing:.02em;}
+.page-head p{font-size:13px;color:var(--ink-2);margin-top:4px;}
+.f-sum{margin:18px 20px 0;border-radius:28px;padding:18px 20px;background:linear-gradient(140deg,#FFF2C8 0%,#FFDB7E 62%,#FFC857 100%);display:flex;align-items:center;justify-content:space-between;overflow:hidden;box-shadow:0 18px 30px -16px rgba(245,166,35,.55);}
+.f-sum .eyebrow{color:#8A5A1E;}
+.f-sum h2{font:800 42px/1 var(--num);color:#5E3A18;margin-top:6px;}
+.f-sum h2 small{font:700 14px var(--zh);margin-left:6px;}
+.stack{display:flex;}
+.stack .tok{width:40px;height:40px;font-size:15px;margin-left:-10px;border:2px solid #FFE6A6;}
+.f-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.tile{border:0;background:var(--paper);border-radius:22px;padding:12px 0 10px;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:12.5px;font-weight:500;cursor:pointer;position:relative;box-shadow:0 4px 12px rgba(120,90,40,.06);transition:all .2s;}
+.tile .tok{width:44px;height:44px;font-size:17px;transition:transform .25s;}
+.tile .badge{position:absolute;top:7px;right:7px;width:18px;height:18px;border-radius:50%;background:#E2A33A;display:grid;place-items:center;transform:scale(0);transition:transform .25s cubic-bezier(.3,1.6,.5,1);}
+.tile .badge svg{width:10px;height:10px;stroke:#fff;stroke-width:3.5;}
+.tile.on{background:#FFF6DC;box-shadow:inset 0 0 0 2px #E2B25A,0 8px 18px -6px rgba(200,140,50,.35);font-weight:700;}
+.tile.on .tok{transform:scale(1.07);}
+.tile.on .badge{transform:scale(1);}
+.add-row{display:flex;gap:10px;margin-top:14px;}
+.add-row input{flex:1;height:50px;border-radius:25px;border:1.5px solid var(--line);background:var(--paper);padding:0 20px;font:14px 'Noto Sans TC';color:var(--ink);outline:none;transition:border .2s;}
+.add-row input:focus{border-color:#E2B25A;}
+.add-row input::placeholder{color:var(--ink-3);}
+.add-row button{width:50px;height:50px;border-radius:50%;border:0;background:linear-gradient(140deg,#F4875A,#E8673F);color:#FFF8EC;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 16px -6px rgba(232,103,63,.6);}
+.photo{margin-top:14px;width:100%;border:2px dashed #E9D2A6;border-radius:24px;background:rgba(255,253,248,.6);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;}
+.photo .cam{width:52px;height:52px;border-radius:18px;background:linear-gradient(140deg,#FFE7A8,#FFC86B);display:grid;place-items:center;box-shadow:var(--clay);color:#7A4A12;flex-shrink:0;}
+.photo b{font-size:14px;display:block;}
+.photo small{font-size:12px;color:var(--ink-3);}
+.cta{margin:20px 20px 0;width:calc(100% - 40px);height:60px;border:0;border-radius:30px;cursor:pointer;
+  background:linear-gradient(120deg,#F4875A 0%,#E8673F 100%);color:#FFF8EC;font-family:var(--zh);font-size:17px;font-weight:700;letter-spacing:.08em;
+  display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 16px 28px -12px rgba(232,103,63,.6),inset 0 2px 0 rgba(255,230,210,.4);}
+
+/* ============ COMMUNITY ============ */
+#s-community{background:var(--cream);}
+.search{margin:16px 20px 0;height:48px;border-radius:24px;background:var(--paper);display:flex;align-items:center;gap:10px;padding:0 18px;color:var(--ink-3);font-size:14px;box-shadow:var(--lift);}
+.pa{border:0;background:none;display:flex;align-items:center;gap:4px;font:600 13px var(--en);color:var(--ink-2);cursor:pointer;padding:6px 4px;}
+.pa svg{width:18px;height:18px;}
+.pa.on{color:#F06A5E;}
+.pa.on svg{fill:#F06A5E;stroke:#F06A5E;animation:beat .35s;}
+.pa.saved svg{fill:var(--honey);stroke:var(--honey);}
+@keyframes beat{50%{transform:scale(1.35);}}
+
+.feed-tabs{display:flex;gap:4px;margin:16px 20px 0;padding:4px;border-radius:22px;background:#F1E7D7;}
+.feed-tabs button{flex:1;height:38px;border:0;border-radius:18px;background:none;font:700 14px var(--zh);color:var(--ink-3);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s;}
+.feed-tabs button b{font:700 12px var(--num);padding:1px 7px;border-radius:9px;background:rgba(58,46,36,.08);}
+.feed-tabs button.on{background:var(--paper);color:var(--ink);box-shadow:0 4px 10px rgba(120,90,40,.12);}
+.feed-tabs button.on b{background:var(--butter);color:var(--cocoa);}
+.feed-count{padding:14px 20px 2px;font-size:12px;color:var(--ink-3);}
+.feed{display:flex;flex-direction:column;gap:16px;padding:8px 20px 0;}
+.post{background:var(--paper);border-radius:28px;padding:9px 9px 14px;box-shadow:0 10px 24px rgba(120,90,40,.09);}
+.post .ph{position:relative;border-radius:21px;overflow:hidden;aspect-ratio:4/3;background:#EFE4D4;}
+.post .ph img{width:100%;height:100%;display:block;object-fit:cover;}
+.post .ph img.zoom{position:absolute;height:auto;object-fit:initial;}
+.post .who{position:absolute;left:10px;top:10px;display:flex;align-items:center;gap:7px;padding:4px 12px 4px 4px;border-radius:20px;background:rgba(255,250,242,.92);backdrop-filter:blur(6px);font:700 13px var(--en);color:var(--ink);}
+.post .who .av{width:26px;height:26px;border-radius:50%;background:var(--butter);display:grid;place-items:center;font:800 12px var(--en);color:var(--cocoa);}
+.post .who small{font:500 11.5px var(--en);color:var(--ink-3);}
+.post h3{font-family:var(--zh);font-size:18px;font-weight:700;margin:13px 8px 4px;letter-spacing:.02em;}
+.post p{font-size:13px;color:var(--ink-2);line-height:1.6;margin:0 8px;}
+.post .foot{display:flex;align-items:center;justify-content:space-between;margin:12px 6px 0 8px;}
+.post .tag{font:700 11.5px var(--zh);padding:5px 11px;border-radius:12px;background:#FFF1C9;color:#8A6410;}
+.post .tag.prep{background:#FFE7D4;color:#9C4A26;}
+.post .acts{display:flex;gap:10px;}
+
+/* ============ TOAST ============ */
+.toast{position:absolute;bottom:104px;left:50%;transform:translate(-50%,10px);background:var(--cocoa);color:#FFF8EC;padding:11px 20px;border-radius:22px;font-size:13px;opacity:0;transition:all .28s;pointer-events:none;white-space:nowrap;z-index:80;box-shadow:0 10px 24px rgba(59,44,34,.3);}
+.toast.show{opacity:1;transform:translate(-50%,0);}
+
+@media (max-width:440px){
+  body{padding:0;background:var(--cream);display:block;}
+  .phone{width:100vw;height:100vh;height:100dvh;border-radius:0;box-shadow:none;}
+  .island,.home-ind{display:none;}
+}
+</style>
+</head>
+<body>
+
+<aside class="poster">
+  <div class="brand">最食人間煙火色<span>MOOD · COLOR · RECIPE</span></div>
+  <div class="rule"></div>
+  <p class="quote">「且將新火試新茶，<br>詩酒趁年華。」<span class="quote-source">——蘇軾〈望江南・超然臺作〉</span><span class="own-line">且將無火試新菜，依然趁年華。</span></p>
+</aside>
+
+<div class="phone" id="phone">
+  <div class="island"></div>
+
+  <!-- ====================== HOME ====================== -->
+  <section class="screen active" id="s-home">
+    <div class="sb"><span>9:41</span><span class="sb-icons"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12"><path d="M8 2.5c2.3 0 4.4.9 6 2.4l1.3-1.4A10.6 10.6 0 0 0 8 .6 10.6 10.6 0 0 0 .7 3.5L2 4.9a8.7 8.7 0 0 1 6-2.4Zm0 3.8c1.3 0 2.5.5 3.4 1.3l1.3-1.4A7 7 0 0 0 8 4.4a7 7 0 0 0-4.7 1.8l1.3 1.4c.9-.8 2.1-1.3 3.4-1.3ZM8 10l2-2.1a2.9 2.9 0 0 0-4 0Z"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><rect x="24" y="4" width="2" height="4" rx="1" opacity=".4"/></svg></span></div>
+
+    <header class="h-top">
+      <div>
+        <p class="hello"><span class="avatar">C</span>Good morning, Chloe</p>
+        <h1>今天想煮什麼呢？</h1>
+      </div>
+      <button class="icon-btn" onclick="toast('今天還沒有新通知')"><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+    </header>
+
+    <div class="hero grain">
+      <div class="sun"></div>
+      <div class="hero-text">
+        <p class="eyebrow">Mood Gacha</p>
+        <p class="hand">一顆扭蛋，<br>決定今天的味道。</p>
+      </div>
+      <div class="machine" id="machine">
+        <div class="dome">
+          <span class="cap" style="--cc:#EE7F6A;left:10px;top:84px;--r:-20deg"></span>
+          <span class="cap" style="--cc:#FFD970;left:42px;top:90px;--r:15deg"></span>
+          <span class="cap" style="--cc:#9CCB8A;left:76px;top:86px;--r:40deg"></span>
+          <span class="cap" style="--cc:#F2E3C6;left:104px;top:72px;--r:-35deg"></span>
+          <span class="cap" style="--cc:#FFB48F;left:22px;top:54px;--r:60deg;--s:30px"></span>
+          <span class="cap" style="--cc:#A9CBE8;left:54px;top:60px;--r:-10deg"></span>
+          <span class="cap" style="--cc:#FFD970;left:86px;top:46px;--r:25deg;--s:30px"></span>
+          <span class="cap" style="--cc:#EE7F6A;left:44px;top:30px;--r:80deg;--s:28px"></span>
+        </div>
+        <div class="m-body"><span class="knob"></span><span class="slot"></span></div>
+        <span class="out" id="out-cap"></span>
+      </div>
+    </div>
+
+    <div class="pad">
+      <div class="sec-head"><h3>現在的情緒<i>Mood</i></h3><span>選一個最接近的</span></div>
+      <div class="mood-row">
+        <button class="mood on" style="--mc:#FFC94F" onclick="pickMood(this,'happy')"><span class="face" data-mood="happy"></span>快樂<small>很潤很潤</small></button>
+        <button class="mood" style="--mc:#F2B48C" onclick="pickMood(this,'tired')"><span class="face" data-mood="tired"></span>疲憊<small>需要充電</small></button>
+        <button class="mood" style="--mc:#8DBDE6" onclick="pickMood(this,'sad')"><span class="face" data-mood="sad"></span>難過<small>已emo</small></button>
+        <button class="mood" style="--mc:#FF9978" onclick="pickMood(this,'angry')"><span class="face" data-mood="angry"></span>生氣<small>破大防</small></button>
+      </div>
+
+      <div class="sec-head"><h3>偏好色系<i>Palette</i></h3><span>決定食材的顏色</span></div>
+      <div class="spectrum grain" id="spectrum" style="--tc:#FFBE22">
+        <div class="sp-top"><span class="sp-dot"></span><b id="sp-name">黃色</b><small>左右拖曳選色</small></div>
+        <div class="sp-track" id="sp-track"><span class="sp-thumb" id="sp-thumb"></span></div>
+        <div class="sp-labels" id="sp-labels"><button onclick="setSpec(0)">綠色</button><button onclick="setSpec(1)">奶油色</button><button class="on" onclick="setSpec(2)">黃色</button><button onclick="setSpec(3)">紅色</button></div>
+      </div>
+    </div>
+
+    <button class="pull" id="pull-btn" onclick="pullGacha()">
+      <span>轉動扭蛋<small id="pull-hint">快樂 · 黃色</small></span>
+      <span class="go"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span>
+    </button>
+
+    <div class="week">
+      <div class="week-top"><h4>這週的情緒</h4><span>11/09 – 11/15</span></div>
+      <div class="days">
+        <div><i class="m" data-mood="happy"></i>Mon</div>
+        <div><i class="m" data-mood="tired"></i>Tue</div>
+        <div><i></i>Wed</div>
+        <div><i class="m" data-mood="sad"></i>Thu</div>
+        <div><i class="m" data-mood="angry"></i>Fri</div>
+        <div><i class="m" data-mood="tired"></i>Sat</div>
+        <div class="today"><i></i>Sun</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== RECIPE ====================== -->
+  <section class="screen" id="s-recipe">
+    <div class="r-hero grain" id="r-hero">
+      <div class="sb"><span>9:41</span><span class="sb-icons"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/></svg></span></div>
+      <div class="r-nav">
+        <button class="icon-btn" onclick="goTo('home')"><svg class="i" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="t">今日扭蛋</span>
+        <button class="icon-btn" id="fav-btn" onclick="toggleFav(this)"><svg class="i" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg></button>
+      </div>
+      <p class="r-tag" id="r-tag"></p>
+      <div class="plate-wrap">
+        <div class="plate" id="r-plate"></div>
+      </div>
+    </div>
+
+    <div class="sheet">
+      <span class="for" id="r-for"></span>
+      <h1 id="r-name"></h1>
+      <p class="sub" id="r-sub"></p>
+
+      <div class="stats">
+        <div class="stat"><span><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>時間</span><b id="r-time"></b></div>
+        <div class="stat"><span><svg class="i" viewBox="0 0 24 24"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 3 7 7 7Z"/></svg>熱量（估）</span><b id="r-kcal"></b></div>
+        <div class="stat"><span><svg class="i" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg>難度</span><b class="zh" id="r-level"></b></div>
+      </div>
+
+      <div class="sec-head"><h3>食材<i>Ingredients</i></h3><span class="progress" id="ing-prog"></span></div>
+      <div class="ings" id="r-ings"></div>
+
+      <div class="sec-head"><h3>步驟<i>Method</i></h3><span class="progress" id="step-prog"></span></div>
+      <div class="steps" id="r-steps"></div>
+
+      <div class="diary">
+        <div class="d-head"><b>料理日記</b><small>DIARY</small></div>
+        <textarea id="r-diary" rows="3" placeholder="寫點什麼吧" oninput="saveDiary(this.value)"></textarea>
+        <small class="d-hint">只存在這台裝置上</small>
+      </div>
+      <p class="disclaimer">照片為作者的料理實作紀錄；材料與作法為參考整理，份量、時間與熱量為估算，請依實際熟度調整。</p>
+
+      <div class="actions">
+        <button class="act" onclick="toast('已複製買菜清單！')" title="買菜清單"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 7H6"/></svg></button>
+        <button class="act" onclick="pullAgain()" title="再抽一次"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></button>
+        <button class="act-main" onclick="toast('開啟 Uber Eats...')">懶得煮？叫外送<span class="go"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FRIDGE ====================== -->
+  <section class="screen" id="s-fridge">
+    <div class="sb"><span>9:41</span><span class="sb-icons"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/></svg></span></div>
+    <div class="page-head">
+      <div><p class="kicker">My fridge</p><h1>我的冰箱</h1><p>勾選現有食材，幫你配一道菜</p></div>
+      <button class="icon-btn" onclick="clearFridge()" title="清空"><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    </div>
+
+    <div class="f-sum grain">
+      <div><p class="eyebrow">In your fridge</p><h2 id="f-count">3<small>樣食材</small></h2></div>
+      <div class="stack" id="f-stack"></div>
+    </div>
+
+    <div class="pad">
+      <div class="sec-head"><h3>冰箱裡有什麼<i>Pantry</i></h3><span>點一下選取</span></div>
+      <div class="f-grid" id="f-grid"></div>
+      <div class="add-row">
+        <input id="f-input" placeholder="還有什麼？例如：鮭魚" onkeydown="if(event.key==='Enter')addTile()">
+        <button onclick="addTile()" title="新增"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      </div>
+      <button class="photo" onclick="toast('拍照辨識（操作示意）')">
+        <span class="cam"><svg class="i" viewBox="0 0 24 24"><path d="M14.5 4h-5L7.5 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+        <span><b>拍一張冰箱照片</b><small>自動辨識食材（操作示意）</small></span>
+      </button>
+    </div>
+    <button class="cta" onclick="fridgeRecipe()">幫我配一道菜</button>
+  </section>
+
+  <!-- ====================== COMMUNITY ====================== -->
+  <section class="screen" id="s-community">
+    <div class="sb"><span>9:41</span><span class="sb-icons"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/></svg></span></div>
+    <div class="page-head">
+      <div><p class="kicker">Community</p><h1>社群食譜</h1><p>分享交流，順便找飯友</p></div>
+      <button class="icon-btn" onclick="toast('發文功能（操作示意）')" title="發文"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+    <div class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>搜尋料理或食材</div>
+    <div class="feed-tabs" id="feed-tabs"><button class="on" onclick="feedTab('dish')">料理<b id="n-dish"></b></button><button onclick="feedTab('prep')">備料專區<b id="n-prep"></b></button></div>
+    <p class="feed-count" id="feed-count"></p>
+    <div class="feed" id="feed"></div>
+  </section>
+
+  <!-- ====================== TAB BAR ====================== -->
+  <nav class="tabbar">
+    <button class="tab active" data-tab="home" onclick="goTo('home')"><span class="ti"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/></svg></span>扭蛋</button>
+    <button class="tab" data-tab="community" onclick="goTo('community')"><span class="ti"><svg class="i" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>社群</button>
+    <button class="tab" data-tab="fridge" onclick="goTo('fridge')"><span class="ti"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M5 10h14M9 5.5v2M9 13v4"/></svg></span>冰箱</button>
+    <button class="tab" data-tab="me" onclick="toast('「我的」頁面製作中')"><span class="ti"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>我的</button>
+  </nav>
+
+  <div class="home-ind"></div>
+  <div class="toast" id="toast-el"></div>
+</div>
+
+<script>
+// ── 情緒扭蛋：跟扭蛋機裡的膠囊同一種質感與配色，上半奶油殼、下半色殼 ─────
+const CREATURE = {
+  happy:   { name:'快樂', fill:'#FFD970', dark:'#E9B640' },
+  tired:   { name:'疲憊', fill:'#FFB48F', dark:'#E58E66' },
+  sad:     { name:'難過', fill:'#A9CBE8', dark:'#7FA8CE' },
+  angry:   { name:'生氣', fill:'#EE7F6A', dark:'#CC5E4A' }
+};
+function creature(k){
+  const c = CREATURE[k], INK = '#3A2E24', g = 'cap-' + k + '-' + (creature.n = (creature.n || 0) + 1);
+  const S = (w = 1.8) => `stroke="${INK}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" fill="none"`;
+  const dot = (x, y) => `<circle cx="${x}" cy="${y}" r="2" fill="${INK}"/>`;
+  let face = '', extra = '';
+  if (k === 'happy'){        // 微笑
+    face = dot(31, 46) + dot(49, 46)
+      + `<path d="M36.6 49.6q3.4 3.2 6.8 0" ${S(1.6)}/>`;
+  }
+  if (k === 'tired'){        // －＿－  旁邊兩條波浪
+    face = `<path d="M27.8 46.5h6.4M45.8 46.5h6.4" ${S(1.9)}/><path d="M38.7 51.5h2.6" ${S(1.6)}/>`;
+    extra = `<path d="M64 11q2-1.6 4 0t4 0M64 15.5q2-1.6 4 0t4 0" ${S(1.3)}/>`;
+  }
+  if (k === 'sad'){          // 兩顆圓圓的空心眼、一字小嘴
+    face = `<ellipse cx="31.2" cy="46" rx="3" ry="3.3" ${S(1.6)}/><ellipse cx="48.8" cy="45.8" rx="3.4" ry="3.6" ${S(1.6)}/>`
+      + `<path d="M38.3 48h3.4" ${S(1.6)}/>`;
+  }
+  if (k === 'angry'){        // 微微往中間壓的眼、張大的方嘴
+    face = `<path d="M27.8 43.9q3.3.8 6.2 2.3M52.2 43.9q-3.3.8-6.2 2.3" ${S(1.9)}/>`
+      + `<path d="M35.8 49q4.2-.6 8.4 0q.6 4-.3 7q-3.9.6-7.8 0q-.9-3-.3-7z" fill="#FFFDF8" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/>`;
+  }
+  const defs = `<defs><clipPath id="${g}c"><circle cx="40" cy="42" r="27"/></clipPath>`
+    + `<radialGradient id="${g}" cx="34%" cy="26%" r="82%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#7A4A12" stop-opacity="0"/><stop offset="1" stop-color="#7A4A12" stop-opacity=".22"/></radialGradient></defs>`;
+  return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">${defs}`
+    + `<ellipse cx="40" cy="73" rx="19" ry="3" fill="#B0701A" opacity=".16"/>`
+    + `<g clip-path="url(#${g}c)"><rect width="80" height="35" fill="#FBF1DF"/><rect y="35" width="80" height="45" fill="${c.fill}"/>`
+    + `<rect y="33.6" width="80" height="2.4" fill="${c.dark}" opacity=".45"/><rect y="36" width="80" height="1.4" fill="#fff" opacity=".35"/>`
+    + `<circle cx="40" cy="42" r="27" fill="url(#${g})"/></g>`
+    + `<circle cx="40" cy="42" r="26.6" fill="none" stroke="#B98A52" stroke-opacity=".28" stroke-width=".9"/>`
+    + `<ellipse cx="29" cy="23.5" rx="7.5" ry="3.4" fill="#fff" opacity=".9" transform="rotate(-24 29 23.5)"/>`
+    + face + extra + `</svg>`;
+}
+function paintMoods(root = document){
+  root.querySelectorAll('[data-mood]').forEach(el => { el.innerHTML = creature(el.dataset.mood); });
+}
+
+// ── Colours → dishes from the photo folder ─────────────────
+// 每個色系都對應資料夾裡的實拍料理；材料與作法為參考整理。
+const themes = {
+  yellow: {
+    name:'黃色', c:'#F5B43A', soft:'#FFF1C6', deep:'#7A5200',
+    hero:'linear-gradient(165deg,#FFF2C8 0%,#FFDB7E 58%,#FFC550 100%)',
+    recipes:[
+      {"name": "醬油漬蛋黃佐鮭魚炒菇", "photo": "IMG_9351", "time": 20, "kcal": 620, "level": "中", "ings": [["蛋黃（生食級）", "1 顆"], ["醬油", "2 大匙"], ["味醂", "1 大匙"], ["鮭魚", "1 片"], ["雪白菇", "半包"], ["雞蛋豆腐", "半盒"], ["白飯", "1 碗"]], "steps": ["前一晚把蛋黃泡進醬油和味醂，冷藏醃漬", "鮭魚切塊煎到熟透，放入雪白菇一起炒軟", "雞蛋豆腐切片，小火煎到兩面微黃", "白飯裝盒，放上鮭魚炒菇、雞蛋豆腐和醃好的蛋黃"]},
+      {"name": "牛肉金針菇丼飯", "photo": "IMG_9725", "time": 15, "kcal": 640, "level": "低", "ings": [["牛肉片", "120 g"], ["金針菇", "半包"], ["蛋黃（生食級）", "1 顆"], ["白飯", "1 碗"], ["醬油", "1 大匙"], ["味醂", "1 大匙"], ["糖", "1 小匙"]], "steps": ["金針菇切段；醬油、味醂、糖加少許水煮滾", "放入牛肉片和金針菇，煮到牛肉完全變色", "鋪在白飯上，中間放蛋黃"]},
+      {"name": "地瓜圓佐黑糖麻糬", "photo": "IMG_0120", "time": 40, "kcal": 380, "level": "中", "ings": [["地瓜", "200 g"], ["地瓜粉", "70 g"], ["麻糬", "2 塊"], ["黑糖", "2 大匙"], ["水", "300 ml"]], "steps": ["地瓜蒸熟壓成泥，趁熱加地瓜粉揉成糰", "搓成小段，滾水煮到浮起後再煮 2 分鐘", "黑糖加水煮成糖水", "地瓜圓和麻糬盛碗，淋上黑糖水"]},
+      {"name": "溏心蛋咖哩飯", "photo": "IMG_0860", "time": 35, "kcal": 700, "level": "中", "ings": [["雞蛋", "1 顆"], ["咖哩塊", "2 塊"], ["馬鈴薯", "1 顆"], ["紅蘿蔔", "半根"], ["洋蔥", "半顆"], ["白飯", "1 碗"]], "steps": ["雞蛋滾水煮 6 分半，泡冰水後剝殼", "洋蔥、馬鈴薯、紅蘿蔔切塊炒香，加水煮軟", "關火放咖哩塊攪到融化，再小火煮稠", "淋在白飯旁，放上切半的溏心蛋"]},
+      {"name": "奶油烏龍麵佐九層塔雞蛋", "photo": "IMG_4600", "time": 15, "kcal": 560, "level": "低", "ings": [["烏龍麵", "1 份"], ["奶油", "15 g"], ["醬油", "1 小匙"], ["雞蛋", "2 顆"], ["九層塔", "一小把"], ["鹽", "少許"]], "steps": ["烏龍麵燙開後瀝乾", "奶油融化後下烏龍麵，加醬油拌炒", "雞蛋打散拌入九層塔，煎成蛋", "烏龍麵和九層塔煎蛋一起裝盒"]},
+      {"name": "馬鈴薯檸檬蜂蜜蒜香雞小腿", "photo": "IMG_6507", "time": 40, "kcal": 620, "level": "中", "ings": [["雞小腿", "4 支"], ["馬鈴薯", "1 顆"], ["檸檬", "半顆"], ["蜂蜜", "1 大匙"], ["蒜頭", "4 瓣"], ["醬油", "1 大匙"]], "steps": ["雞小腿用醬油和蒜末醃 15 分鐘", "馬鈴薯切塊，先煮到半熟", "雞小腿中火煎到上色，加馬鈴薯，蓋鍋燜到雞肉熟透", "加蜂蜜和檸檬汁收汁，放上檸檬片"]}
+    ]
+  },
+  red: {
+    name:'紅色', c:'#E8705F', soft:'#FFE4DE', deep:'#9A3428',
+    hero:'linear-gradient(165deg,#FFE8E0 0%,#FFBCAA 58%,#F4917C 100%)',
+    recipes:[
+      {"name": "蝦仁滑蛋豆腐煲", "photo": "IMG_3778", "time": 20, "kcal": 420, "level": "低", "ings": [["蝦仁", "8 隻"], ["雞蛋", "2 顆"], ["嫩豆腐", "半盒"], ["鴻喜菇", "一小把"], ["高湯", "150 ml"], ["鹽、白胡椒", "少許"]], "steps": ["蝦仁去腸泥，豆腐切塊", "高湯煮滾，放豆腐和鴻喜菇煮 3 分鐘", "放蝦仁煮到變色熟透", "轉小火倒入蛋液，輕推到半凝固就關火"]},
+      {"name": "檸檬鮮蝦蒜頭飯", "photo": "IMG_8809", "time": 20, "kcal": 580, "level": "低", "ings": [["鮮蝦", "6 隻"], ["白飯", "1 碗"], ["蒜頭", "5 瓣"], ["檸檬", "半顆"], ["青蔥", "1 根"], ["奶油", "10 g"]], "steps": ["蒜頭切末，用奶油小火炒到金黃", "下白飯炒散，加鹽和蔥花拌勻", "鮮蝦煎到兩面變紅、熟透", "鮮蝦放在蒜頭飯上，擠一點檸檬汁"]},
+      {"name": "番茄牛腩飯", "photo": "IMG_5805", "time": 80, "kcal": 720, "level": "高", "ings": [["牛腩", "200 g"], ["番茄", "2 顆"], ["洋蔥", "半顆"], ["番茄醬", "1 大匙"], ["醬油", "1 大匙"], ["白飯", "1 碗"], ["青蔥", "1 根"]], "steps": ["牛腩切塊，汆燙去血水", "洋蔥炒軟，加番茄炒出汁", "放牛腩、番茄醬、醬油和水，小火燉 60 分鐘到軟", "盛在白飯旁，撒上蔥花"]},
+      {"name": "糖醋雞丁", "photo": "IMG_5946", "time": 30, "kcal": 520, "level": "中", "ings": [["雞胸肉", "200 g"], ["雞蛋", "1 顆"], ["太白粉", "2 大匙"], ["番茄醬", "2 大匙"], ["白醋", "1 大匙"], ["糖", "1 大匙"], ["羅勒", "少許"]], "steps": ["雞肉切丁，用蛋液醃 10 分鐘，再裹太白粉", "中火煎到表面金黃、中心熟透", "番茄醬、白醋、糖加少許水煮到微稠", "雞丁回鍋裹醬，放上羅勒"]},
+      {"name": "番茄羅勒鮮蝦", "photo": "IMG_6161", "time": 20, "kcal": 320, "level": "低", "ings": [["鮮蝦", "10 隻"], ["番茄", "2 顆"], ["蒜頭", "2 瓣"], ["羅勒", "一小把"], ["檸檬", "1 片"], ["橄欖油、鹽", "少許"]], "steps": ["鮮蝦去殼去腸泥，番茄切塊", "橄欖油炒香蒜末，下番茄炒軟出汁", "放鮮蝦煮到變色熟透，加鹽調味", "起鍋前拌入羅勒，旁邊配檸檬"]},
+      {"name": "蕃茄雪白菇燉羊肉", "photo": "IMG_6844", "time": 30, "kcal": 560, "level": "中", "ings": [["羊肉片", "200 g"], ["番茄", "2 顆"], ["雪白菇", "1 包"], ["洋蔥", "半顆"], ["蒜頭", "2 瓣"], ["醬油", "1 大匙"], ["九層塔", "少許"]], "steps": ["洋蔥、蒜末炒香，下番茄炒出汁", "加水和醬油煮滾，放雪白菇煮 5 分鐘", "放羊肉片煮到完全熟透", "盛盤，放上九層塔"]}
+    ]
+  },
+  green: {
+    name:'綠色', c:'#7FAF6E', soft:'#E6F2DF', deep:'#3E6B32',
+    hero:'linear-gradient(165deg,#F0F7E8 0%,#CDE4BC 58%,#A8CE94 100%)',
+    recipes:[
+      {"name": "牛排鮮蝦青醬麵", "photo": "IMG_0952", "time": 30, "kcal": 780, "level": "中", "ings": [["牛排", "1 片"], ["鮮蝦", "4 隻"], ["水管麵", "100 g"], ["青醬", "2 大匙"], ["九層塔", "少許"], ["鹽、黑胡椒", "少許"]], "steps": ["水管麵依包裝時間煮熟", "牛排撒鹽和黑胡椒，兩面煎到喜歡的熟度，靜置後切片", "鮮蝦煎到熟透", "麵拌青醬，放上牛排、鮮蝦和九層塔"]},
+      {"name": "打拋豬肉飯（台版）", "photo": "IMG_5420", "time": 20, "kcal": 680, "level": "低", "ings": [["豬絞肉", "150 g"], ["番茄", "半顆"], ["九層塔", "一把"], ["蒜頭", "2 瓣"], ["醬油", "1 大匙"], ["雞蛋", "1 顆"], ["白飯", "1 碗"]], "steps": ["蒜末炒香，下絞肉炒散", "加番茄丁、醬油和少許糖，炒到收汁", "關火拌入九層塔", "配白飯和一顆荷包蛋"]},
+      {"name": "鮮蝦蔥花飯", "photo": "IMG_7706", "time": 15, "kcal": 560, "level": "低", "ings": [["鮮蝦", "6 隻"], ["白飯", "1 碗"], ["青蔥", "2 根"], ["雞蛋", "1 顆"], ["醬油", "1 小匙"], ["鹽", "少許"]], "steps": ["青蔥切成蔥花", "蛋液炒到半熟先盛起", "下白飯炒散，加回炒蛋、醬油、鹽和大量蔥花", "鮮蝦煎熟，放在飯上"]},
+      {"name": "皮蛋瘦肉粥", "photo": "IMG_7203", "time": 40, "kcal": 380, "level": "低", "ings": [["白米", "半杯"], ["豬里肌", "80 g"], ["皮蛋", "1 顆"], ["青蔥", "1 根"], ["薑", "2 片"], ["鹽、白胡椒", "少許"]], "steps": ["白米洗淨加 6 倍水煮滾，轉小火熬 30 分鐘", "豬里肌切絲，用少許鹽抓勻", "放肉絲、皮蛋丁和薑絲，煮到肉熟", "加鹽、白胡椒調味，撒蔥花"]}
+    ]
+  },
+  white: {
+    name:'奶油色', c:'#CDAE7E', soft:'#F7EEDD', deep:'#6B5232',
+    hero:'linear-gradient(165deg,#FFFBF2 0%,#F4E6CC 58%,#E6CFA6 100%)',
+    recipes:[
+      {"name": "藍莓香蕉燕麥碗", "photo": "IMG_3602", "time": 10, "kcal": 350, "level": "低", "ings": [["燕麥片", "40 g"], ["牛奶", "200 ml"], ["香蕉", "1 根"], ["藍莓", "一小把"], ["蜂蜜", "少許"]], "steps": ["燕麥和牛奶小火煮 3 到 5 分鐘，到濃稠", "香蕉切片", "鋪上香蕉和藍莓，淋少許蜂蜜"]},
+      {"name": "醬油蜂蜜雞翅佐荷包蛋", "photo": "IMG_8761", "time": 35, "kcal": 650, "level": "中", "ings": [["雞翅", "4 支"], ["年糕", "4 條"], ["雞蛋", "1 顆"], ["醬油", "2 大匙"], ["蜂蜜", "1 大匙"], ["青蔥", "1 根"]], "steps": ["雞翅用一半的醬油醃 15 分鐘", "中火煎到兩面上色，加剩下的醬油、蜂蜜和少許水，蓋鍋燜到熟透", "放年糕一起收汁，煮到年糕變軟", "煎一顆荷包蛋，撒上蔥花"]},
+      {"name": "壽喜燒便當", "photo": "IMG_9691", "time": 25, "kcal": 700, "level": "低", "ings": [["牛肉片", "120 g"], ["烏龍麵", "1 份"], ["蛋黃（生食級）", "1 顆"], ["地瓜", "1 小條"], ["青菜", "1 把"], ["壽喜燒醬", "3 大匙"]], "steps": ["地瓜切塊蒸熟", "壽喜燒醬加水煮滾，放牛肉片煮到熟透", "烏龍麵和青菜放進醬汁煮熟", "全部裝盒，放上蛋黃"]},
+      {"name": "滷肉飯", "photo": "IMG_6744", "time": 80, "kcal": 850, "level": "中", "ings": [["豬五花", "300 g"], ["醬油", "3 大匙"], ["冰糖", "1 大匙"], ["米酒", "2 大匙"], ["蒜頭", "4 瓣"], ["雞蛋", "1 顆"], ["白飯", "1 碗"]], "steps": ["豬五花切大塊，汆燙後瀝乾", "蒜頭爆香，下五花肉煎到出油", "加醬油、冰糖、米酒和水，小火滷 60 分鐘", "配白飯和荷包蛋，放幾片九層塔"], "pos": "50% 30%"},
+      {"name": "醬油奶油飯佐煎雞小腿", "photo": "IMG_7638", "time": 30, "kcal": 680, "level": "中", "ings": [["雞小腿", "2 支"], ["白飯", "1 碗"], ["奶油", "10 g"], ["醬油", "1 大匙"], ["青蔥", "1 根"], ["鹽、胡椒", "少許"]], "steps": ["雞小腿撒鹽和胡椒，中小火煎到外皮金黃、中心熟透", "奶油融化後下白飯炒散", "沿鍋邊淋醬油炒勻，撒蔥花", "盛碗，放上雞小腿"], "pos": "50% 40%"},
+      {"name": "石頭火鍋烏龍麵", "photo": "IMG_7616", "time": 20, "kcal": 620, "level": "低", "ings": [["烏龍麵", "1 份"], ["牛肉片", "100 g"], ["香菇", "2 朵"], ["雞蛋", "1 顆"], ["青蔥", "1 根"], ["醬油", "1 大匙"], ["味醂", "1 大匙"]], "steps": ["醬油、味醂加水煮成湯底", "放香菇和烏龍麵煮 3 分鐘", "放牛肉片煮到熟透，打一顆蛋", "蓋鍋燜到蛋白凝固，撒上蔥花"]}
+    ]
+  }
+};
+
+// Fridge items: [name, initial, token colour, text colour, match keyword, preselected]
+const FRIDGE = [
+  ['雞蛋','蛋','#FFF2D6','#9A7A3A','蛋', true],
+  ['蒜頭','蒜','#F6EEDC','#8A7350','蒜'],
+  ['番茄','茄','#FFD3C2','#B0482E','番茄'],
+  ['蝦仁','蝦','#FFDCC2','#A8552A','蝦', true],
+  ['牛肉','牛','#F3CDB4','#8F4A2A','牛'],
+  ['雞肉','雞','#FFE0C4','#9A5A2A','雞(?!蛋)', true],
+  ['菇類','菇','#EAD9C2','#7A5A36','菇'],
+  ['烏龍麵','麵','#FFF0CC','#8A6A2A','烏龍麵']
+];
+
+let currentColor = 'yellow';
+let currentMood = 'happy';
+let lastPick = {};          // 每個色系上一次抽到的索引，避免連續重複
+let current = null;         // {color, idx}
+let busy = false;
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+
+// ── Navigation ─────────────────────────────────────────────
+function goTo(screen){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('s-' + screen);
+  el.classList.add('active'); el.scrollTop = 0;
+  const tab = screen === 'recipe' ? 'home' : screen;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+}
+
+// ── Home ───────────────────────────────────────────────────
+function updateHint(){
+  document.getElementById('pull-hint').textContent = CREATURE[currentMood].name + ' · ' + themes[currentColor].name;
+  document.getElementById('out-cap').style.setProperty('--c', themes[currentColor].c);
+}
+function pickMood(btn, mood){
+  document.querySelectorAll('.mood').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on'); currentMood = mood; updateHint();
+}
+// 偏好色系：沿著光譜拖曳，落在哪一段就是哪個色系；放開後吸附到該段中央
+const SPEC = [['green','綠色','#5DBF52'],['white','奶油色','#F7E2B0'],['yellow','黃色','#FFBE22'],['red','紅色','#FF5F4C']];
+function setSpec(i, pct){
+  const box = document.getElementById('spectrum');
+  document.getElementById('sp-thumb').style.left = (pct ?? i * 25 + 12.5) + '%';
+  box.style.setProperty('--tc', SPEC[i][2]);
+  document.getElementById('sp-name').textContent = SPEC[i][1];
+  document.querySelectorAll('#sp-labels button').forEach((b, j) => b.classList.toggle('on', j === i));
+  if (currentColor !== SPEC[i][0]){ currentColor = SPEC[i][0]; updateHint(); }
+}
+(function(){
+  const track = document.getElementById('sp-track'), thumb = document.getElementById('sp-thumb');
+  let drag = false, idx = 2;
+  const move = e => {
+    const r = track.getBoundingClientRect();
+    const pct = Math.min(100, Math.max(0, (e.clientX - r.left) / r.width * 100));
+    idx = Math.min(3, Math.floor(pct / 25));
+    setSpec(idx, pct);
+  };
+  track.addEventListener('pointerdown', e => { drag = true; track.setPointerCapture(e.pointerId); thumb.classList.add('drag'); move(e); });
+  track.addEventListener('pointermove', e => { if (drag) move(e); });
+  const end = () => { if (!drag) return; drag = false; thumb.classList.remove('drag'); setSpec(idx); };
+  track.addEventListener('pointerup', end); track.addEventListener('pointercancel', end);
+})();
+function drawIndex(color){
+  const n = themes[color].recipes.length;
+  let i = Math.floor(Math.random() * n);
+  if (n > 1 && i === lastPick[color]) i = (i + 1 + Math.floor(Math.random() * (n - 1))) % n;
+  lastPick[color] = i;
+  return i;
+}
+function moodText(){ return '你抽到'; }
+
+function pullGacha(){
+  if (busy) return;
+  busy = true;
+  const home = document.getElementById('s-home');
+  const m = document.getElementById('machine');
+  const wait = home.scrollTop > 40 ? 450 : 0;   // 先捲回扭蛋機，讓動畫被看見
+  home.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(() => {
+    m.classList.remove('go'); void m.offsetWidth; m.classList.add('go');
+    setTimeout(() => {
+      renderRecipe(currentColor, drawIndex(currentColor), moodText(), currentMood);
+      goTo('recipe');
+      m.classList.remove('go'); busy = false;
+    }, 1500);
+  }, wait);
+}
+function pullAgain(){
+  if (!current) return;
+  renderRecipe(current.color, drawIndex(current.color), moodText(), currentMood);
+  document.getElementById('s-recipe').scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── Recipe ─────────────────────────────────────────────────
+// 料理日記：每道菜各存一則，只放在這台裝置的瀏覽器裡
+let diaryKey = '';
+function loadDiary(photo){
+  diaryKey = 'yanhuo-diary-' + photo;
+  let v = '';
+  try { v = localStorage.getItem(diaryKey) || ''; } catch (e) {}
+  document.getElementById('r-diary').value = v;
+}
+function saveDiary(v){
+  try { localStorage.setItem(diaryKey, v); } catch (e) {}
+}
+function renderRecipe(color, idx, forText, mood){
+  const t = themes[color], r = t.recipes[idx];
+  current = {color, idx};
+  const scr = document.getElementById('s-recipe');
+  scr.style.setProperty('--c', t.c);
+  scr.style.setProperty('--c-soft', t.soft);
+  scr.style.setProperty('--c-deep', t.deep);
+  scr.style.setProperty('--hero', t.hero);
+
+  const plate = document.getElementById('r-plate');
+  plate.innerHTML = `<img src="photos/${r.photo}.jpg" alt="${r.name}的料理實作照片" style="object-position:${r.pos || '50% 50%'}">`;
+  plate.classList.remove('pop'); void plate.offsetWidth; plate.classList.add('pop');
+
+  document.getElementById('r-tag').innerHTML = `<b>TODAY</b><span>${t.name}</span>`;
+  document.getElementById('r-for').textContent = forText;
+  document.getElementById('r-name').textContent = r.name;
+  document.getElementById('r-sub').textContent = `${t.name}系 · 一人份 · 參考配方`;
+  document.getElementById('r-time').innerHTML = r.time + '<small>min</small>';
+  document.getElementById('r-kcal').innerHTML = r.kcal + '<small>kcal</small>';
+  document.getElementById('r-level').textContent = r.level;
+
+  document.getElementById('r-ings').innerHTML = r.ings.map(([n,q]) =>
+    `<button class="ing" onclick="this.classList.toggle('got');countProgress()">
+       <span class="tok">${n[0]}</span><span class="n">${n}<small>${q}</small></span><span class="ck">${CHECK}</span>
+     </button>`).join('');
+
+  document.getElementById('r-steps').innerHTML = r.steps.map((s,i) =>
+    `<div class="step" onclick="this.classList.toggle('done');countProgress(true)">
+       <span class="dot"><span>${i+1}</span>${CHECK}</span>
+       <div class="body"><small>STEP ${String(i+1).padStart(2,'0')}</small><p>${s}</p></div>
+     </div>`).join('');
+
+  loadDiary(r.photo);
+  document.getElementById('fav-btn').classList.remove('liked');
+  countProgress();
+}
+function countProgress(fromStep){
+  const ings = document.querySelectorAll('#r-ings .ing'), got = document.querySelectorAll('#r-ings .ing.got');
+  const steps = document.querySelectorAll('#r-steps .step'), done = document.querySelectorAll('#r-steps .step.done');
+  document.getElementById('ing-prog').textContent = `${got.length} / ${ings.length} 備齊`;
+  document.getElementById('step-prog').textContent = `${done.length} / ${steps.length} 完成`;
+  if (fromStep && steps.length && done.length === steps.length) toast('完成！今天也好好吃飯了');
+}
+function toggleFav(btn){
+  btn.classList.toggle('liked');
+  toast(btn.classList.contains('liked') ? '已加入收藏' : '已取消收藏');
+}
+
+// ── Fridge ─────────────────────────────────────────────────
+function tileHTML([name, init, tc, td, keys, on]){
+  return `<button class="tile${on ? ' on' : ''}" data-k="${keys}" onclick="toggleTile(this)">
+    <span class="badge">${CHECK}</span><span class="tok" style="--tc:${tc};--td:${td}">${init}</span>${name}</button>`;
+}
+function refreshFridge(){
+  const on = [...document.querySelectorAll('#f-grid .tile.on')];
+  document.getElementById('f-count').innerHTML = on.length + '<small>樣食材</small>';
+  document.getElementById('f-stack').innerHTML = on.slice(0,4).map(t => t.querySelector('.tok').outerHTML).join('')
+    + (on.length > 4 ? `<span style="font:700 13px 'Nunito';color:#9C4A26;margin-left:6px;align-self:center">+${on.length-4}</span>` : '');
+}
+function toggleTile(t){ t.classList.toggle('on'); refreshFridge(); }
+function clearFridge(){ document.querySelectorAll('#f-grid .tile.on').forEach(t => t.classList.remove('on')); refreshFridge(); }
+function addTile(){
+  const inp = document.getElementById('f-input');
+  const v = inp.value.trim(); if (!v) return;
+  document.getElementById('f-grid').insertAdjacentHTML('beforeend', tileHTML([v.slice(0,4), v[0], '#EFE6D8', '#6F6152', v, true]));
+  inp.value = ''; refreshFridge(); toast('已加入「' + v + '」');
+}
+function fridgeRecipe(){
+  const keys = [...document.querySelectorAll('#f-grid .tile.on')].map(t => t.dataset.k);
+  if (!keys.length){ toast('先選幾樣冰箱裡的食材吧'); return; }
+  let best = [], top = 0;
+  for (const color in themes){
+    themes[color].recipes.forEach((r, i) => {
+      const score = keys.filter(k => r.ings.some(([n]) => new RegExp(k).test(n))).length;
+      if (score > top){ top = score; best = [[color, i]]; }
+      else if (score === top && score > 0) best.push([color, i]);
+    });
+  }
+  if (!top){ toast('沒有完全吻合的料理，先用目前色系抽一道'); renderRecipe(currentColor, drawIndex(currentColor), '冰箱沒對上，先幫你抽一道'); goTo('recipe'); return; }
+  const [color, i] = best[Math.floor(Math.random() * best.length)];
+  renderRecipe(color, i, `用到冰箱裡的 ${top} 樣食材`);
+  goTo('recipe');
+}
+
+// ── Community：作者自己的料理照片，由舊到新排列 ─────────────
+// [檔名, 裁切位置（數字＝垂直%，字串＝完整 object-position）, 標題, 描述, 選填：在長方形框裡放大的倍率（>1）]
+const FEED = [
+  ['9351',50,'醬油漬蛋黃佐鮭魚炒菇','醬油漬蛋黃、鮭魚炒雪白菇、雞蛋豆腐、白飯。'],
+  ['9691',50,'壽喜燒便當','壽喜燒牛肉、烏龍麵、蛋黃、地瓜、青菜。'],
+  ['9725','72% 18%','牛肉金針菇丼飯','牛肉片、金針菇、蛋黃、白飯。'],
+  ['0120',60,'地瓜圓佐黑糖麻糬','地瓜圓、黑糖、麻糬。'],
+  ['0860',90,'溏心蛋咖哩飯','咖哩、溏心蛋、白飯。'],
+  ['3602',10,'藍莓香蕉燕麥碗','燕麥、藍莓、香蕉。'],
+  ['3778',40,'蝦仁滑蛋豆腐煲','蝦仁、滑蛋、豆腐。'],
+  ['8761',80,'醬油蜂蜜雞翅佐荷包蛋','醬油蜂蜜雞翅、荷包蛋、年糕。'],
+  ['8809',40,'檸檬鮮蝦蒜頭飯','鮮蝦、蒜頭飯、檸檬片。'],
+  ['0952',40,'牛排鮮蝦青醬麵','牛排、鮮蝦、青醬義大利麵。'],
+  ['4600',50,'奶油烏龍麵佐九層塔雞蛋','烏龍麵、奶油、九層塔、雞蛋。'],
+  ['5420',50,'打拋豬肉飯（台版）','打拋豬肉、荷包蛋、白飯，不辣。'],
+  ['5805',50,'番茄牛腩飯','番茄、牛腩、白飯。'],
+  ['5946',50,'糖醋雞丁','雞丁、糖醋醬、羅勒。'],
+  ['6161',65,'番茄羅勒鮮蝦','鮮蝦、番茄、羅勒。',1.12],
+  ['6507',50,'馬鈴薯檸檬蜂蜜蒜香雞小腿','雞小腿、馬鈴薯、檸檬、蜂蜜、蒜頭。'],
+  ['6744',4,'滷肉飯','滷豬五花、荷包蛋、白飯。'],
+  ['6844',60,'蕃茄雪白菇燉羊肉','羊肉、雪白菇、蕃茄。'],
+  ['7203',85,'皮蛋瘦肉粥','皮蛋、瘦肉、白粥。'],
+  ['7638',33,'醬油奶油飯佐煎雞小腿','醬油奶油飯、煎雞小腿。'],
+  ['7616',62,'石頭火鍋烏龍麵','烏龍麵、牛肉片、香菇、蛋、青蔥。'],
+  ['7706',60,'鮮蝦蔥花飯','鮮蝦、蔥花、白飯。']
+];
+// 備料專區：資料夾裡標橘色標籤的照片，由舊到新排列
+const PREP = [
+  ['9102',50,'壽喜燒食材','牛肉片、烏龍麵、雞蛋、白飯、醬汁。'],
+  ['9371',50,'調味料','味醂、玄米油、蠔油、壽喜燒醬、醬油。'],
+  ['9667',45,'雞蛋與水蓮','雞蛋、胡椒鹽、水蓮。'],
+  ['8722',55,'雞翅與年糕','雞翅、年糕、青蔥、醬油。'],
+  ['9713',60,'青醬水管麵食材','水管麵、青醬、牛排。'],
+  ['9733',60,'水管麵下鍋','水管麵、奶油。'],
+  ['4662',50,'鮭魚與荷包蛋','鮭魚、雞蛋、白飯。'],
+  ['5195',50,'蒜頭與青蔥','蒜頭、青蔥。'],
+  ['5675',50,'羊排與麵疙瘩','羊排、麵疙瘩。'],
+  ['5930',50,'醃雞丁','雞丁、蛋液，糖醋雞丁用。'],
+  ['6080',55,'烏龍麵與失手的玫瑰鹽','烏龍麵、玫瑰鹽。'],
+  ['6104','30% 50%','鮭魚與羊肉片','鮭魚、羊肉片。'],
+  ['6421',50,'雞小腿備料','雞小腿、檸檬、蒜末、馬鈴薯、白飯。'],
+  ['6754',50,'番茄羅勒雪白菇','番茄、羅勒、雪白菇。']
+];
+const HEART = '<svg class="i" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg>';
+const CHAT = '<svg class="i" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg>';
+const MARK = '<svg class="i" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>';
+// 照片都放在同一個 4:3 長方形；zoom 只在框內放大（不縮小，避免兩側留空）
+function photoHTML(id, title, pos, zoom){
+  const src = `photos/feed/IMG_${id}.jpg`, alt = `${title}的照片`;
+  if (!zoom || zoom <= 1) return `<img src="${src}" alt="${alt}" loading="lazy" style="object-position:${pos}">`;
+  const [px, py] = pos.split(' ');
+  return `<img class="zoom" src="${src}" alt="${alt}" loading="lazy" style="width:${zoom * 100}%;left:${px};top:${py};transform:translate(-${px},-${py})">`;
+}
+let feedMode = 'dish';
+function feedTab(mode){
+  feedMode = mode;
+  document.querySelectorAll('#feed-tabs button').forEach((b, i) => b.classList.toggle('on', (i === 0) === (mode === 'dish')));
+  renderFeed();
+  document.getElementById('s-community').scrollTop = 0;
+}
+function renderFeed(){
+  const prepMode = feedMode === 'prep', list = prepMode ? PREP : FEED;
+  document.getElementById('n-dish').textContent = FEED.length;
+  document.getElementById('n-prep').textContent = PREP.length;
+  document.getElementById('feed-count').textContent = prepMode ? `${PREP.length} 則備料紀錄` : `${FEED.length} 道料理`;
+  document.getElementById('feed').innerHTML = list.map(([id, y, title, desc, zoom], i) => {
+    const pos = typeof y === 'number' ? `50% ${y}%` : y;
+    const n = parseInt(id, 10) + (prepMode ? 3 : 0);
+    const likes = 4 + (n * 7 + i * 13) % 47, talk = (n + i * 5) % 9, saves = 2 + (n * 3 + i) % 29;
+    return `<article class="post">
+      <div class="ph">${photoHTML(id, title, pos, zoom)}
+        <span class="who"><span class="av">C</span>Chloe</span></div>
+      <h3>${title}</h3>
+      <p>${desc}</p>
+      <div class="foot"><span class="tag${prepMode ? ' prep' : ''}">${prepMode ? '備料' : '料理紀錄'}</span>
+        <div class="acts"><button class="pa" onclick="likeBtn(this)">${HEART}<span>${likes}</span></button><button class="pa">${CHAT}<span>${talk}</span></button><button class="pa" onclick="saveBtn(this)">${MARK}<span>${saves}</span></button></div></div>
+    </article>`;
+  }).join('');
+}
+function likeBtn(btn){
+  const sp = btn.querySelector('span');
+  const on = btn.classList.toggle('on');
+  sp.textContent = parseInt(sp.textContent) + (on ? 1 : -1);
+}
+function saveBtn(btn){
+  const sp = btn.querySelector('span');
+  const on = btn.classList.toggle('saved');
+  sp.textContent = parseInt(sp.textContent) + (on ? 1 : -1);
+  toast(on ? '已收藏！' : '已取消收藏');
+}
+
+// ── Toast ──────────────────────────────────────────────────
+let toastTimer;
+function toast(msg){
+  const el = document.getElementById('toast-el');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1900);
+}
+
+// init
+paintMoods();
+document.getElementById('f-grid').innerHTML = FRIDGE.map(tileHTML).join('');
+renderRecipe('yellow', drawIndex('yellow'), moodText(), 'happy');
+refreshFridge(); updateHint(); renderFeed();
+</script>
+</body>
+</html>

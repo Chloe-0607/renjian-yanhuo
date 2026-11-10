@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>最食人間煙火色</title>
+<meta property="og:title" content="最食人間煙火色">
+<meta property="og:description" content="情緒色彩扭蛋食譜 App｜功能展示影片">
+<meta property="og:image" content="poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* 版面：一欄置中，影片是主角；上方片名、下方兩個入口。顏色照 App 的奶油白、蜂蜜黃、可可棕 */
+:root{
+  --cream:#FFFAF1;
+  --paper:#FFFDF8;
+  --butter:#F5DB8C;
+  --honey:#E2A03A;
+  --cocoa:#463721;
+  --ink-2:#7A6A55;
+  --line:#EFE3CC;
+  --zh:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+  --en:'Nunito','Noto Sans TC',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--cream);}
+body{
+  font-family:var(--zh);color:var(--cocoa);min-height:100vh;
+  background:
+    radial-gradient(circle at 10% 8%,#FFEFC9 0,transparent 32%),
+    radial-gradient(circle at 92% 92%,#FFE2CF 0,transparent 36%),
+    var(--cream);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(40px + env(safe-area-inset-top,0px)) calc(48px + env(safe-area-inset-bottom,0px));
+}
+main{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:28px;}
+header{display:flex;flex-direction:column;gap:10px;}
+.brand{font-size:clamp(30px,5.4vw,52px);font-weight:700;letter-spacing:.1em;line-height:1.15;text-wrap:balance;}
+.brand b{color:var(--honey);font-weight:700;}
+.tag{font:700 12px var(--en);letter-spacing:.32em;color:var(--ink-2);}
+.lede{font-size:16px;line-height:1.7;color:var(--ink-2);max-width:40em;}
+.player{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;border-radius:22px;overflow:hidden;background:#1d1610;
+  box-shadow:0 0 0 8px var(--paper),0 0 0 9px var(--line),0 40px 70px -30px rgba(110,70,30,.45);}
+.player video{position:absolute;inset:0;width:100%;height:100%;display:block;background:#1d1610;}
+.player .msg{position:absolute;inset:auto 0 0 0;padding:14px 18px;font-size:14px;color:#FFF8EC;background:linear-gradient(0deg,rgba(29,22,16,.85),rgba(29,22,16,0));}
+.meta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14px;color:var(--ink-2);}
+.meta span{display:inline-flex;align-items:center;gap:8px;}
+.meta i{width:9px;height:9px;border-radius:50%;background:var(--honey);display:inline-block;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.card{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border-radius:24px;background:var(--paper);
+  text-decoration:none;color:inherit;box-shadow:0 10px 26px -14px rgba(120,90,40,.35);border:1px solid var(--line);transition:transform .2s;}
+.card:hover{transform:translateY(-2px);}
+.card:focus-visible{outline:3px solid var(--honey);outline-offset:3px;}
+.card div{min-width:0;}
+.card b{display:block;font-size:18px;font-weight:700;}
+.card small{display:block;font-size:13px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
+.card .go{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--butter);display:grid;place-items:center;font:800 18px var(--en);color:var(--cocoa);}
+.poem{font-size:15px;line-height:1.9;color:var(--ink-2);}
+.poem em{font-style:normal;color:var(--cocoa);font-weight:700;}
+footer{font-size:12px;color:var(--ink-2);opacity:.85;letter-spacing:.06em;}
+@media (prefers-reduced-motion:reduce){.card{transition:none;}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="tag">MOOD · COLOR · RECIPE</p>
+    <h1 class="brand"><b>最食</b>人間煙火色</h1>
+    <p class="lede">選一個情緒、選一個顏色、轉一顆扭蛋，決定今天吃什麼。下面是 App 的功能展示影片，也可以直接打開 App 原型試試看。</p>
+  </header>
+
+  <div class="player">
+    <video id="v" controls playsinline preload="metadata" poster="poster.jpg"></video>
+    <p class="msg" id="msg" hidden></p>
+  </div>
+  <div class="meta">
+    <span><i></i>功能展示影片・3 分 15 秒・1080p</span>
+    <span>有配樂，記得開聲音</span>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="app/">
+      <div><b>打開 App 原型</b><small>扭蛋、冰箱配菜、社群食譜都可以點點看（操作示意）</small></div>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+    <div class="card" style="cursor:default">
+      <div>
+        <p class="poem">「且將新火試新茶，詩酒趁年華。」<br>——蘇軾〈望江南・超然臺作〉<br><em>且將無火試新菜，依然趁年華。</em></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>App 畫面為設計原型・操作示意｜料理照片皆為實際做過的料理</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.15/dist/hls.min.js"></script>
+<script>
+(function () {
+  var video = document.getElementById('v');
+  var msg = document.getElementById('msg');
+  var src = 'video/index.m3u8';
+  function fail(t) { msg.textContent = t; msg.hidden = false; }
+  if (window.Hls && Hls.isSupported()) {
+    var hls = new Hls({maxBufferLength: 30});
+    hls.loadSource(src);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.ERROR, function (e, d) {
+      if (!d.fatal) return;
+      if (d.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
+      else if (d.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
+      else fail('影片載入失敗，請重新整理頁面再試一次。');
+    });
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = src; // iPhone / Safari 內建支援
+  } else {
+    fail('這個瀏覽器不支援播放，請改用 Chrome 或 Safari。');
+  }
+})();
+</script>
+</body>
+</html>

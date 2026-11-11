@@ -343,16 +343,9 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .post .acts{display:flex;gap:10px;}
 
 /* ============ TOAST ============ */
-.post{cursor:pointer;}
-.post .ph,.post h3,.post p{transition:opacity .15s;}
-.post:active .ph{opacity:.9;}
-.viewer{position:absolute;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:28px 18px;background:rgba(30,22,16,.74);cursor:pointer;}
-.viewer.show{display:flex;animation:enter .3s cubic-bezier(.2,.8,.2,1);}
-.viewer .vbox{width:100%;background:var(--paper);border-radius:26px;padding:9px 9px 16px;box-shadow:0 20px 40px rgba(0,0,0,.25);}
-.viewer img{display:block;width:100%;max-height:58vh;object-fit:contain;border-radius:20px;background:#EFE4D4;}
-.viewer h3{font-family:var(--zh);font-size:18px;font-weight:700;margin:13px 8px 4px;}
-.viewer p{font-size:13px;color:var(--ink-2);line-height:1.6;margin:0 8px;}
-.viewer small{display:block;margin:10px 8px 0;font-size:11.5px;color:var(--ink-3);}
+.post.tap{cursor:pointer;}
+.post.tap .ph{transition:opacity .15s;}
+.post.tap:active .ph{opacity:.9;}
 .toast{position:absolute;bottom:104px;left:50%;transform:translate(-50%,10px);background:var(--cocoa);color:#FFF8EC;padding:11px 20px;border-radius:22px;font-size:13px;opacity:0;transition:all .28s;pointer-events:none;white-space:nowrap;z-index:80;box-shadow:0 10px 24px rgba(59,44,34,.3);}
 .toast.show{opacity:1;transform:translate(-50%,0);}
 
@@ -540,7 +533,6 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <button class="tab" data-tab="me" onclick="toast('「我的」頁面製作中')"><span class="ti"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>我的</button>
   </nav>
 
-  <div class="viewer" id="viewer" onclick="closeViewer()"><div class="vbox"><img id="v-img" alt=""><h3 id="v-title"></h3><p id="v-desc"></p><small>點一下任何地方關閉</small></div></div>
   <div class="home-ind"></div>
   <div class="toast" id="toast-el"></div>
 </div>
@@ -899,7 +891,7 @@ function renderFeed(){
     const pos = typeof y === 'number' ? `50% ${y}%` : y;
     const n = parseInt(id, 10) + (prepMode ? 3 : 0);
     const likes = 4 + (n * 7 + i * 13) % 47, talk = (n + i * 5) % 9, saves = 2 + (n * 3 + i) % 29;
-    return `<article class="post" onclick="openPost(${i}, event)">
+    return `<article class="post${prepMode ? '' : ' tap'}"${prepMode ? '' : ` onclick="openPost(${i}, event)"`}>
       <div class="ph">${photoHTML(id, title, pos, zoom)}
         <span class="who"><span class="av">C</span>Chloe</span></div>
       <h3>${title}</h3>
@@ -909,23 +901,15 @@ function renderFeed(){
     </article>`;
   }).join('');
 }
-// 點貼文：料理 → 打開那道菜的食譜頁；備料 → 放大看照片與說明（按讚、留言、收藏鍵不會觸發）
+// 點「料理」分頁的貼文 → 打開那道菜的食譜頁（按讚、留言、收藏鍵不會觸發；備料貼文不能點）
 function openPost(i, e){
-  if (e && e.target.closest('.pa')) return;
-  const [id, , title, desc] = (feedMode === 'prep' ? PREP : FEED)[i];
-  if (feedMode === 'dish'){
-    for (const color in themes){
-      const idx = themes[color].recipes.findIndex(r => r.photo === 'IMG_' + id);
-      if (idx >= 0){ renderRecipe(color, idx, '社群 · 料理紀錄'); goTo('recipe'); return; }
-    }
+  if (feedMode !== 'dish' || (e && e.target.closest('.pa'))) return;
+  const id = FEED[i][0];
+  for (const color in themes){
+    const idx = themes[color].recipes.findIndex(r => r.photo === 'IMG_' + id);
+    if (idx >= 0){ renderRecipe(color, idx, '社群 · 料理紀錄'); goTo('recipe'); return; }
   }
-  const img = document.getElementById('v-img');
-  img.src = `photos/feed/IMG_${id}.jpg`; img.alt = `${title}的照片`;
-  document.getElementById('v-title').textContent = title;
-  document.getElementById('v-desc').textContent = desc;
-  document.getElementById('viewer').classList.add('show');
 }
-function closeViewer(){ document.getElementById('viewer').classList.remove('show'); }
 function likeBtn(btn){
   const sp = btn.querySelector('span');
   const on = btn.classList.toggle('on');

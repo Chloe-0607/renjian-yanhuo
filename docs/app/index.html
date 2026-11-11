@@ -343,6 +343,16 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .post .acts{display:flex;gap:10px;}
 
 /* ============ TOAST ============ */
+.post{cursor:pointer;}
+.post .ph,.post h3,.post p{transition:opacity .15s;}
+.post:active .ph{opacity:.9;}
+.viewer{position:absolute;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:28px 18px;background:rgba(30,22,16,.74);cursor:pointer;}
+.viewer.show{display:flex;animation:enter .3s cubic-bezier(.2,.8,.2,1);}
+.viewer .vbox{width:100%;background:var(--paper);border-radius:26px;padding:9px 9px 16px;box-shadow:0 20px 40px rgba(0,0,0,.25);}
+.viewer img{display:block;width:100%;max-height:58vh;object-fit:contain;border-radius:20px;background:#EFE4D4;}
+.viewer h3{font-family:var(--zh);font-size:18px;font-weight:700;margin:13px 8px 4px;}
+.viewer p{font-size:13px;color:var(--ink-2);line-height:1.6;margin:0 8px;}
+.viewer small{display:block;margin:10px 8px 0;font-size:11.5px;color:var(--ink-3);}
 .toast{position:absolute;bottom:104px;left:50%;transform:translate(-50%,10px);background:var(--cocoa);color:#FFF8EC;padding:11px 20px;border-radius:22px;font-size:13px;opacity:0;transition:all .28s;pointer-events:none;white-space:nowrap;z-index:80;box-shadow:0 10px 24px rgba(59,44,34,.3);}
 .toast.show{opacity:1;transform:translate(-50%,0);}
 
@@ -439,7 +449,7 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <div class="r-hero grain" id="r-hero">
       <div class="sb"><span>9:41</span><span class="sb-icons"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/></svg></span></div>
       <div class="r-nav">
-        <button class="icon-btn" onclick="goTo('home')"><svg class="i" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="icon-btn" onclick="goTo(lastScreen)"><svg class="i" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
         <span class="t">今日扭蛋</span>
         <button class="icon-btn" id="fav-btn" onclick="toggleFav(this)"><svg class="i" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg></button>
       </div>
@@ -530,6 +540,7 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <button class="tab" data-tab="me" onclick="toast('「我的」頁面製作中')"><span class="ti"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>我的</button>
   </nav>
 
+  <div class="viewer" id="viewer" onclick="closeViewer()"><div class="vbox"><img id="v-img" alt=""><h3 id="v-title"></h3><p id="v-desc"></p><small>點一下任何地方關閉</small></div></div>
   <div class="home-ind"></div>
   <div class="toast" id="toast-el"></div>
 </div>
@@ -649,11 +660,13 @@ let busy = false;
 const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
 
 // ── Navigation ─────────────────────────────────────────────
+let lastScreen = 'home';   // 食譜頁的返回鍵回到這裡（扭蛋、冰箱或社群）
 function goTo(screen){
+  if (screen !== 'recipe') lastScreen = screen;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById('s-' + screen);
   el.classList.add('active'); el.scrollTop = 0;
-  const tab = screen === 'recipe' ? 'home' : screen;
+  const tab = screen === 'recipe' ? lastScreen : screen;
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
 }
 
@@ -886,7 +899,7 @@ function renderFeed(){
     const pos = typeof y === 'number' ? `50% ${y}%` : y;
     const n = parseInt(id, 10) + (prepMode ? 3 : 0);
     const likes = 4 + (n * 7 + i * 13) % 47, talk = (n + i * 5) % 9, saves = 2 + (n * 3 + i) % 29;
-    return `<article class="post">
+    return `<article class="post" onclick="openPost(${i}, event)">
       <div class="ph">${photoHTML(id, title, pos, zoom)}
         <span class="who"><span class="av">C</span>Chloe</span></div>
       <h3>${title}</h3>
@@ -896,6 +909,23 @@ function renderFeed(){
     </article>`;
   }).join('');
 }
+// 點貼文：料理 → 打開那道菜的食譜頁；備料 → 放大看照片與說明（按讚、留言、收藏鍵不會觸發）
+function openPost(i, e){
+  if (e && e.target.closest('.pa')) return;
+  const [id, , title, desc] = (feedMode === 'prep' ? PREP : FEED)[i];
+  if (feedMode === 'dish'){
+    for (const color in themes){
+      const idx = themes[color].recipes.findIndex(r => r.photo === 'IMG_' + id);
+      if (idx >= 0){ renderRecipe(color, idx, '社群 · 料理紀錄'); goTo('recipe'); return; }
+    }
+  }
+  const img = document.getElementById('v-img');
+  img.src = `photos/feed/IMG_${id}.jpg`; img.alt = `${title}的照片`;
+  document.getElementById('v-title').textContent = title;
+  document.getElementById('v-desc').textContent = desc;
+  document.getElementById('viewer').classList.add('show');
+}
+function closeViewer(){ document.getElementById('viewer').classList.remove('show'); }
 function likeBtn(btn){
   const sp = btn.querySelector('span');
   const on = btn.classList.toggle('on');

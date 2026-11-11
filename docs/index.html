@@ -104,7 +104,7 @@ footer{font-size:12px;color:var(--ink-2);opacity:.85;letter-spacing:.06em;}
   var src = 'video/v12-master.m3u8'; // 1080p／720p／480p 三種畫質，依網速自動切換
   function fail(t) { msg.textContent = t; msg.hidden = false; }
   if (window.Hls && Hls.isSupported()) {
-    var hls = new Hls({maxBufferLength: 30, capLevelToPlayerSize: true, abrEwmaDefaultEstimate: 2500000});
+    var hls = new Hls({startLevel: 1, maxBufferLength: 20, maxMaxBufferLength: 40, capLevelToPlayerSize: true, abrEwmaDefaultEstimate: 5000000, abrBandWidthUpFactor: 0.8}); // 從 720p 開播，網速夠再升 1080p
     hls.loadSource(src);
     hls.attachMedia(video);
     hls.on(Hls.Events.ERROR, function (e, d) {
